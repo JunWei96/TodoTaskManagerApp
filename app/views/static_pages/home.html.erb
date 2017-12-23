@@ -1,4 +1,13 @@
-<h1>TODO Manager App</h1>
-<p>
-  This is the home page for my soon to be TODO task manager application!
-</p>
+<div class="center jumbotron">
+  <h1>Welcome to the TODO Manager App</h1>
+
+  <h2>
+    This is the github page for the
+    <a href="https://github.com/JunWei96/sample_app"> TODO Manager App</a>!
+  </h2>
+
+  <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+</div>
+
+<%= link_to image_tag("logo.png", alt: "TODO logo"),
+            'https://young-wildwood-93613.herokuapp.com/static_pages/home' %>
