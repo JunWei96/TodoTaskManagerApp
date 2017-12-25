@@ -72,4 +72,9 @@ class UserTest < ActiveSupport::TestCase
     assert !@user.valid?
   end
 
+  test "password_confirmation should be same as password" do
+    @user.password = "foobardsada"
+    @user.password_confirmation = "foobarzxcz"
+    assert !@user.valid?
+  end
 end
