@@ -27,6 +27,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
 gem 'wdm' , '>= 0.1.0' if Gem.win_platform?
+gem 'jquery-rails', '>= 4.3.1'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -43,8 +44,6 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
-
-  gem 'jquery-rails'
 end
 
 group :development do
