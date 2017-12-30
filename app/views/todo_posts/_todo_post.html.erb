@@ -1,0 +1,16 @@
+<li id="todo_post-<%= todo_post.id %>">
+  <% if !todo_post.subject.empty? %>
+    <span class="subject"> <%= todo_post.subject %></span> <br />
+  <% end %>
+  <span class="description"> <%= todo_post.description %></span> <br />
+  <% if !todo_post.due_date.nil? %>
+  <span class="due_date:"> <%= todo_post.due_date.strftime("Due on %d/%m/%Y") %></span> <br />
+  <% end %>
+  <span class="timestamp"> Created <%= time_ago_in_words(todo_post.created_at) %> ago.
+    <% if current_user?(todo_post.user) %>
+      <%= link_to "Delete", todo_post, method: :delete,
+                                       data: {confirm: "You sure?" } %>
+      <%= link_to "Edit", edit_todo_post_path(todo_post) %>
+    <% end %>
+  </span>
+</li>

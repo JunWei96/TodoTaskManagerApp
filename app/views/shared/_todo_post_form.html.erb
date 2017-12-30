@@ -1,0 +1,15 @@
+<%= form_for(@todo_post) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.label :subject %>
+    <%= f.text_area :subject%>
+
+    <%= f.label :description %>
+    <%= f.text_area :description, placeholder: "Compose new task..."%>
+
+    <%= f.label :due_date %>
+    <%= f.text_field :due_date, placeholder: "DD-MM-YYYY",
+                     'data-behaviour' => 'datepicker' %>
+  </div>
+  <%= f.submit "Post", class: "btn btn-primary" %>
+<% end %>

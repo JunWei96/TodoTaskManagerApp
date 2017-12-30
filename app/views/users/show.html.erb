@@ -1,15 +1,27 @@
 <% provide(:title, @user.name) %>
+<h1> <%= @user.name %> </h1>
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
       <h1>
         <%= gravatar_for @user %>
-        <%= @user.name %>
+        <span> Email: <%= @user.email %> </span>
+        <span> <%= @user.created_at.strftime("Created on %d/%m/%Y") %> </span>
+        <span> Time zone: <%= @user.time_zone %> </span>
       </h1>
     </section>
   </aside>
-  <p><%= @user.name %>, <%= @user.email %></p>
-  <p> Created at: <%= @user.created_at %> </p>
-  <p> Updated at: <%= @user.updated_at %> </p>
-  <p> Time now: <%= Time.now %>
+
+  <div class="col-md-8">
+    <% if @user.todo_posts.any? %>
+      <h3>TODO List (<%= @user.todo_posts.count %>)</h3>
+      <ol class="todo_posts">
+        <% @todo_posts.each do |todo_post| %>
+          <%= render todo_post %>
+        <% end %>
+      </ol>
+      <%= will_paginate @todo_posts %>
+    <% end %>
+  </div>
+
 </div>

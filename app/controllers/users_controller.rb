@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     redirect_to root_url and return if !@user.activated?
+    @todo_posts = @user.todo_posts.paginate(page: params[:page])
   end
 
   def new
@@ -23,9 +24,6 @@ class UsersController < ApplicationController
       @user.send_activation_email
       flash[:info] = "Please check your email to activate your account."
       redirect_to root_url
-      # log_in @user
-      # flash[:success] = "Sign Up is Successful! Here is your profile!"
-      # redirect_to user_url(@user)
     else
       @path_if_signup_fail = signup_path
       render 'new'
@@ -56,15 +54,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password,
-                           :password_confirmation)
-  end
-
-  def logged_in_user
-    if !logged_in?
-      store_location
-      flash[:danger] = "Please log in."
-      redirect_to login_url
-    end
+                                 :password_confirmation, :time_zone)
   end
 
     # Confirms the correct user.

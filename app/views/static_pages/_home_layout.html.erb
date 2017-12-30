@@ -1,0 +1,26 @@
+<% if logged_in? %>
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <%= render 'shared/user_info' %>
+      </section>
+      <section class="todo_post_form">
+        <%= render 'shared/todo_post_form' %>
+      </section>
+    </aside>
+
+    <div class="col-md-8">
+      <% if !@user.nil? && @user.todo_posts.any? %>
+        <h1>TODO List (<%= @user.todo_posts.count %>)</h1>
+        <ol class="todo_posts">
+          <% @todo_posts.each do |todo_post| %>
+            <%= render todo_post %>
+          <% end %>
+        </ol>
+        <%= will_paginate @todo_posts %>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <%= render partial: "welcome_page" %>
+<% end %>

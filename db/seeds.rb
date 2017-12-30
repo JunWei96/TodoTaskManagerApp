@@ -9,6 +9,7 @@ User.create!(name:  "junwei",
              email: "junwei@example.com",
              password:              "ilovejingwen",
              password_confirmation: "ilovejingwen",
+             time_zone: "Singapore",
              admin: true,
              activated: true,
              activated_at: Time.zone.now)
@@ -21,6 +22,17 @@ User.create!(name:  "junwei",
                email: email,
                password:              password,
                password_confirmation: password,
+               time_zone: "Singapore",
                activated: true,
                activated_at: Time.zone.now)
+end
+
+users = User.order(:created_at).take(6)
+50.times do
+  subject = Faker::Lorem.sentence(3)
+  description = Faker::Lorem.sentence(5)
+  due_date = Faker::Date.between_except(1.year.ago, 1.year.from_now, Date.today)
+  users.each { |user| user.todo_posts.create!(subject: subject,
+                                              description: description,
+                                              due_date: due_date) }
 end

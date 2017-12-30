@@ -15,7 +15,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
                                               password_confirmation: "bar" } }
 
     assert_template 'users/edit'
-    assert_select 'div#error_explanation li', 4
+    assert_select 'div#error_explanation'
   end
 
   test "successful edit with friendly forwarding" do
@@ -27,6 +27,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     email = "foo@bar.com"
     patch user_path(@user), params: {user: { name: name,
                                              email: email,
+                                             time_zone: "Singapore",
                                              password: "",
                                              password_confirmation: "" } }
     # assert_select "div#error_explanation li" 0

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   def setup
-    @user = User.new(name: "Example User", email: "user@example.com",
+    @user = User.new(name: "Example User", email: "user@example.com", time_zone: "Singapore",
                      password: "foobar", password_confirmation: "foobar")
   end
 
@@ -80,5 +80,14 @@ class UserTest < ActiveSupport::TestCase
 
   test "authenticated? should return false for a user with nil digest" do
     assert_not @user.authenticated?(:remember, '')
+  end
+
+  test "associated todo_posts should be destroyed" do
+    @user.save
+    @user.todo_posts.create!(subject: "test", description: "test",
+                              due_date: "4/2/2018", user_id: @user.id)
+    assert_difference 'TodoPost.count', -1 do
+      @user.destroy
+    end
   end
 end

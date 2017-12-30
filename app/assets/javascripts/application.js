@@ -14,4 +14,15 @@
 //= require bootstrap
 //= require rails-ujs
 //= require turbolinks
+//= require bootstrap-datepicker
 //= require_tree .
+
+// var today = new Date();
+// var date = today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
+// var date = "hi"
+$(document).on("focus", "[data-behaviour~='datepicker']", function(e){
+    $(this).datepicker({"format": "dd-mm-yyyy",
+                        "weekStart": 1,
+                        "autoclose": true,
+                        "startDate": "0d"});
+});
