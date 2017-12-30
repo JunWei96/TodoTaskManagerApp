@@ -3,7 +3,7 @@ require 'test_helper'
 class TodoPostTest < ActiveSupport::TestCase
   def setup
     @user = users(:michael)
-    @todo_post = @user.todo_posts.build(subject: "test", description: "test",
+    @todo_post = @user.todo_posts.build(description: "test",
                               due_date: "4/2/2018", user_id: @user.id)
   end
 

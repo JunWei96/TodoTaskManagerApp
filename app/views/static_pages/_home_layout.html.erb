@@ -1,4 +1,4 @@
-<% if logged_in? %>
+<% if logged_in? && current_user.activated? %>
   <div class="row">
     <aside class="col-md-4">
       <section class="user_info">
@@ -7,6 +7,7 @@
       <section class="todo_post_form">
         <%= render 'shared/todo_post_form' %>
       </section>
+      <%= render 'static_pages/tag_cloud' %>
     </aside>
 
     <div class="col-md-8">

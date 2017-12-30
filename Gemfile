@@ -22,6 +22,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'wdm' , '>= 0.1.0' if Gem.win_platform?
 gem 'jquery-rails', '>= 4.3.1'
 gem 'bootstrap-datepicker-rails', '~> 1.7', '>= 1.7.1.1'
+gem 'acts-as-taggable-on', '~> 5.0'
 
 group :development, :test do
   gem 'sqlite3'

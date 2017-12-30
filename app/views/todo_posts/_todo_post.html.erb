@@ -1,10 +1,8 @@
 <li id="todo_post-<%= todo_post.id %>">
-  <% if !todo_post.subject.empty? %>
-    <span class="subject"> <%= todo_post.subject %></span> <br />
-  <% end %>
+  <span class "subject" > <%= raw todo_post.tag_list.map { |t| link_to t, tag_path(t) }.join(", ") %> </span> <br />
   <span class="description"> <%= todo_post.description %></span> <br />
   <% if !todo_post.due_date.nil? %>
-  <span class="due_date:"> <%= todo_post.due_date.strftime("Due on %d/%m/%Y") %></span> <br />
+    <span class="due_date:"> <%= todo_post.due_date.strftime("Due on %d/%m/%Y") %></span> <br />
   <% end %>
   <span class="timestamp"> Created <%= time_ago_in_words(todo_post.created_at) %> ago.
     <% if current_user?(todo_post.user) %>

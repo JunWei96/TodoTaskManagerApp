@@ -1,17 +1,18 @@
 class StaticPagesController < ApplicationController
   def home
     if logged_in?
-      @todo_post = current_user.todo_posts.build if logged_in?
       @user = current_user
-      @todo_posts = @user.todo_posts.paginate(page: params[:page])
+      # for /share/todo_post_form
+      @todo_post = @user.todo_posts.build
+      # @user.tag(@todo_post, with: params[:tag_list], on: :category)
+      # @todo_post.save
+      @subjects = get_subjects
+      if params[:tag]
+        @todo_posts = TodoPost.tagged_with(params[:tag], owned_by: @user).paginate(page: params[:page])
+      else
+        @todo_posts = @user.todo_posts.paginate(page: params[:page])
+      end
     end
-
-    # if logged_in?
-    #   @todo_post  = current_user.todo_posts.build
-    #   @feed_items = current_user.feed.paginate(page: params[:page])
-    # end
-    # @user = current_user
-    # @todo_posts = TodoPost.where("user_id = ?", current_user.id)
   end
 
   def help
@@ -21,5 +22,19 @@ class StaticPagesController < ApplicationController
   end
 
   def contact
+  end
+
+  private
+
+  def get_subjects
+    owned_tags = current_user.owned_tags
+    subjects = []
+    len = owned_tags.length
+    i = 0
+    while i < len do
+      subjects << current_user.owned_tags[i].name
+      i = i + 1
+    end
+    return subjects
   end
 end

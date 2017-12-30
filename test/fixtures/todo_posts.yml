@@ -1,26 +1,22 @@
 orange:
-  subject: "Orange"
   description: "I just ate an orange!"
   due_date: "10/3/2018"
   created_at: <%= 10.minutes.ago %>
   user: michael
 
 tau_manifesto:
-  subject: "manifesto"
   description: "Check out the @tauday site by @mhartl: http://tauday.com"
   due_date: "9/2/2018"
   created_at: <%= 3.years.ago %>
   user: michael
 
 cat_video:
-  subject: "cats"
   description: "Sad cats are sad: http://youtu.be/PKffm2uI4dk"
   due_date: "4/2/2018"
   created_at: <%= 2.hours.ago %>
   user: michael
 
 most_recent:
-  subject: "test"
   description: "Writing a short test"
   due_date: "9/3/2018"
   created_at: <%= Time.zone.now %>
@@ -28,7 +24,6 @@ most_recent:
 
 <% 30.times do |n| %>
 todo_post_<%= n %>:
-  subject: <%= Faker::Lorem.sentence(3) %>
   description: <%= Faker::Lorem.sentence(5) %>
   due_date: <%= Faker::Date.between_except(1.year.ago, 1.year.from_now, Date.today) %>
   created_at: <%= 42.days.ago %>
@@ -36,28 +31,24 @@ todo_post_<%= n %>:
 <% end %>
 
 ants:
-  subject: "Benefits of Apple"
   description: "An apple a day keeps the doc away!"
   due_date: "9/3/2018"
   created_at: <%= 3.years.ago %>
   user: archer
 
 zone:
-  subject: "Zoning off"
   description: "Need a break"
   due_date: "9/3/2018"
   created_at: <%= 3.years.ago %>
   user: archer
 
 tone:
-  subject: "Project work"
   description: "Meeting!"
   due_date: "9/3/2018"
   created_at: <%= 3.years.ago %>
   user: lana
 
 van:
-  subject: "Project work"
   description: "Write proposal!"
   due_date: "9/3/2018"
   created_at: <%= 3.years.ago %>

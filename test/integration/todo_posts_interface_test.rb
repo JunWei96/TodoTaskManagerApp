@@ -12,8 +12,7 @@ class TodoPostsInterfaceTest < ActionDispatch::IntegrationTest
 
     #invalid submission
     assert_no_difference 'TodoPost.count' do
-      post todo_posts_path, params: { todo_post: { subject: "invalid",
-                                                  description: "",
+      post todo_posts_path, params: { todo_post: { description: "",
                                                   due_date: "22/03/2018" } }
     end
 
@@ -24,8 +23,7 @@ class TodoPostsInterfaceTest < ActionDispatch::IntegrationTest
     #valid submission
     description = "valid description!"
     assert_difference 'TodoPost.count', 1 do
-      post todo_posts_path, params: { todo_post: { subject: "valid",
-                                                  description: description,
+      post todo_posts_path, params: { todo_post: { description: description,
                                                   due_date: "22/03/2018" } }
     end
     assert_redirected_to root_url
@@ -33,7 +31,7 @@ class TodoPostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_match description, response.body
 
     #delete post
-    assert_select 'a', text: 'delete'
+    assert_select 'ol li a', text: 'Delete'
     first_todo_post = @user.todo_posts.paginate(page: 1).first
     assert_difference 'TodoPost.count', -1 do
       delete todo_post_path(first_todo_post)

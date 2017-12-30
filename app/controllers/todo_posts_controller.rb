@@ -3,8 +3,11 @@ class TodoPostsController < ApplicationController
   before_action :correct_user,   only: :destroy
 
   def create
-    @todo_post = current_user.todo_posts.build(todo_post_params)
+    @user = current_user
+    @todo_post = @user.todo_posts.build(todo_post_params)
+
     if @todo_post.save
+      add_or_update_tag(@user, @todo_post)
       flash[:success] = "Task added!"
       redirect_to root_url
     else
@@ -21,7 +24,9 @@ class TodoPostsController < ApplicationController
 
   def update
     @todo_post = current_user.todo_posts.find(params[:id])
+
     if @todo_post.update(todo_post_params)
+      add_or_update_tag(current_user, @todo_post)
       flash[:success] = "Task edited!"
       redirect_to root_url
     else
@@ -38,10 +43,17 @@ class TodoPostsController < ApplicationController
   private
 
   def todo_post_params
-    params.require(:todo_post).permit(:subject, :description, :due_date)
+    params.require(:todo_post).permit(:description, :due_date, :tag_list)
   end
+
   def correct_user
     @todo_post = current_user.todo_posts.find_by(id: params[:id])
     redirect_to root_url if @todo_post.nil?
+  end
+
+  def add_or_update_tag(user, todo_post)
+    subjects = todo_post.all_tags_list.dup
+    subjects.add(params[:tag_list])
+    user.tag(todo_post, with: subjects, on: :category)
   end
 end

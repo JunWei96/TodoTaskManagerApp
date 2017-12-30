@@ -84,7 +84,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "associated todo_posts should be destroyed" do
     @user.save
-    @user.todo_posts.create!(subject: "test", description: "test",
+    @user.todo_posts.create!(description: "test",
                               due_date: "4/2/2018", user_id: @user.id)
     assert_difference 'TodoPost.count', -1 do
       @user.destroy
