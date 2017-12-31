@@ -72,6 +72,14 @@ class User < ApplicationRecord
     self.todo_posts
   end
 
+  def search_task(search_param)
+    if search_param
+      todo_posts.where("description LIKE ?", "%#{search_param}%")
+    else
+      todo_posts
+    end
+  end
+
   private
 
   # Converts email to all lower-case.

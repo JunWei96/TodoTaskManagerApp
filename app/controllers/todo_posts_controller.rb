@@ -2,6 +2,14 @@ class TodoPostsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: :destroy
 
+  def index
+    if logged_in?
+      @user = current_user
+      @todo_posts = @user.search_task(params[:search]).paginate(page: params[:page])
+      @todo_post = @user.todo_posts.build
+    end
+  end
+
   def create
     @user = current_user
     @todo_post = @user.todo_posts.build(todo_post_params)
