@@ -1,14 +1,35 @@
 <li id="todo_post-<%= todo_post.id %>">
-  <span class "subject" > <%= raw todo_post.tag_list.map { |t| link_to t, tag_path(t) }.join(", ") %> </span> <br />
-  <span class="description"> <%= todo_post.description %></span> <br />
-  <% if !todo_post.due_date.nil? %>
-    <span class="due_date:"> <%= todo_post.due_date.strftime("Due on %d/%m/%Y") %></span> <br />
+
+  <span class="description">
+    <%= todo_post.description %>
+  </span> <br />
+
+  <% if !todo_post.category.empty? %>
+    <span class "subject">
+      Tags: <%= raw todo_post.category.map { |t| link_to t.name, tag_path(t.name) }.join(", ") %>
+    </span> <br />
   <% end %>
-  <span class="timestamp"> Created <%= time_ago_in_words(todo_post.created_at) %> ago.
+
+  <% if !todo_post.due_date.nil? %>
+    <span class="due_date:">
+      <%= todo_post.due_date.strftime("Due on %d/%m/%Y") %>
+    </span> <br />
+  <% end %>
+
+  <span class="timestamp">
+    Created <%= time_ago_in_words(todo_post.created_at) %> ago.
     <% if current_user?(todo_post.user) %>
-      <%= link_to "Delete", todo_post, method: :delete,
-                                       data: {confirm: "You sure?" } %>
-      <%= link_to "Edit", edit_todo_post_path(todo_post) %>
+
+        <%= link_to edit_todo_post_path(todo_post) do %>
+          <%= icon('pencil', class: 'fa-1x') %>
+        <% end %>
+
+        <%= link_to todo_post, method: :delete, data: {confirm: "You sure?" } do %>
+          <%= icon('trash', class: 'fa-1x') %>
+        <% end %>
     <% end %>
   </span>
+  <!-- <span class="icons">
+
+  </span> -->
 </li>

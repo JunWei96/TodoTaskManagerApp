@@ -2,14 +2,20 @@
   <!-- <%= render 'shared/error_messages', object: f.object %> -->
   <div class="field">
     <%= f.label :tag_list, "Category (Optional)" %>
-    <%= f.text_area :tag_list%>
+    <%= f.text_area :tag_list, value: @todo_post.category.map(&:name) == [] ? ""
+                                          : @todo_post.category.map(&:name).join(", ") %>
 
     <%= f.label :description, "Task's description" %>
     <%= f.text_area :description, placeholder: "Compose new task..."%>
 
     <%= f.label :due_date %>
-    <%= f.text_field :due_date, placeholder: "DD-MM-YYYY",
+    <% if @todo_post.due_date.nil? %>
+      <%= f.text_field :due_date, placeholder: "DD-MM-YYYY",
                      'data-behaviour' => 'datepicker' %>
+    <% else %>
+      <%= f.text_field :due_date, value: @todo_post.due_date.strftime("%d/%m/%Y"),
+                   'data-behaviour' => 'datepicker' %>
+    <% end %>
   </div>
   <%= f.submit "Submit", class: "btn btn-primary" %>
 <% end %>
