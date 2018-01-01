@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def index
+    redirect_to root_url and return if !current_user.admin?
     @users = User.where(activated: true).paginate(page: params[:page])
   end
 

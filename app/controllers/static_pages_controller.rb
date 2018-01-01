@@ -8,17 +8,12 @@ class StaticPagesController < ApplicationController
       # @todo_post.save
       @subjects = get_subjects
       if params[:tag]
-        @todo_posts = TodoPost.tagged_with(params[:tag], owned_by: @user).paginate(page: params[:page])
+        @todo_posts = TodoPost.tagged_with(params[:tag],
+                                owned_by: @user).paginate(page: params[:page])
       else
         @todo_posts = @user.todo_posts.paginate(page: params[:page])
       end
     end
-  end
-
-  def help
-  end
-
-  def about
   end
 
   def contact

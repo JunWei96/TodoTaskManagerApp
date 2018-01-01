@@ -1,0 +1,8 @@
+
+<% if params[:search] %>
+  <h1> <%= "Search: " + params[:search] %> </h1>
+<% elsif params[:tag] %>
+  <h1> <%= "Category: " + params[:tag] %> </h1>
+<% else %>
+  <h1> <%= "TODO List" + "(" + @user.todo_posts.count.to_s + ")" %></h1>
+<% end %>
