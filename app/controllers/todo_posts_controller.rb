@@ -7,6 +7,7 @@ class TodoPostsController < ApplicationController
       @user = current_user
       @todo_posts = @user.search_task(params[:search]).paginate(page: params[:page])
       @todo_post = @user.todo_posts.build
+      @header = "Search: " + params[:search]
     end
   end
 

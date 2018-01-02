@@ -273,3 +273,14 @@ aside {
   .l { font-size: 1.8em; }
   .xl { font-size: 2.2em; }
 }
+
+// advanced search
+.new_advanced_search {
+  div.col-md-6 {
+    padding-left: 0px;
+  }
+}
+
+div#datepicker.input-daterange.input-group {
+  margin-bottom: 15px;
+}

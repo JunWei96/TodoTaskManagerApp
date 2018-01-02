@@ -10,8 +10,10 @@ class StaticPagesController < ApplicationController
       if params[:tag]
         @todo_posts = TodoPost.tagged_with(params[:tag],
                                 owned_by: @user).paginate(page: params[:page])
+        @header = "Category: " + params[:tag]
       else
         @todo_posts = @user.todo_posts.paginate(page: params[:page])
+        @header = "TODO list(" + @user.todo_posts.count.to_s + ")"
       end
     end
   end

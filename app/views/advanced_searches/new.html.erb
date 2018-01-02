@@ -1,0 +1,26 @@
+<h1>Advanced Search</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for @advanced_search do |f| %>
+
+      <%= f.label :category %>
+      <%= f.text_field :category, class: 'form-control' %>
+
+      <%= f.label :description %>
+      <%= f.text_field :description, class: 'form-control' %>
+
+      <%= f.label "Date range" %>
+      <div class="input-daterange input-group" data-behaviour='datepicker' id="datepicker">
+         <%= f.text_field :due_date_start, class: 'form-control' %>
+         <span class="input-group-addon">to</span>
+         <%= f.text_field :due_date_end, class: 'form-control' %>
+      </div>
+
+      <%= f.label :completed %>
+      <%= f.select :completed, ["true", "false"], include_blank: true, class: 'form-control' %>
+
+      <%= f.submit "Search", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   acts_as_tagger
   has_many :todo_posts, dependent: :destroy
+  has_many :advanced_searches, dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token
 
