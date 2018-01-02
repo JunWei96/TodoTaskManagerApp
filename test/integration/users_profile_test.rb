@@ -12,10 +12,5 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     assert_template 'users/show'
     assert_select 'title', full_title(@user.name)
     assert_select 'h1', text: @user.name
-    assert_match @user.todo_posts.count.to_s, response.body
-    assert_select 'div.pagination'
-    @user.todo_posts.paginate(page: 1).each do |todo_post|
-      assert_match todo_post.description, response.body
-    end
   end
 end

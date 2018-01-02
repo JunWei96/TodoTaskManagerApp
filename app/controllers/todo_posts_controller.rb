@@ -16,8 +16,8 @@ class TodoPostsController < ApplicationController
 
     if @todo_post.save
       # add_or_update_tag(@user, @todo_post, todo_post_params["tag_list"])
-      # flash[:success] = "Task added!"
-      flash[:success] = @todo_post.tags.map(&:name)
+      flash[:success] = "Task added!"
+      # flash[:success] = @todo_post.tags.map(&:name)
       redirect_to root_url
     else
       flash[:danger] = "Empty task!"
@@ -48,6 +48,16 @@ class TodoPostsController < ApplicationController
     @todo_post.destroy
     flash[:success] = "Task deleted"
     redirect_to request.referrer || root_url
+  end
+
+  def complete
+    if logged_in?
+      @user = current_user
+      @todo_post = @user.todo_posts.find(params[:id])
+      @todo_post.touch(:completed_at)
+      flash[:success] = "Task successfully completed!"
+      redirect_to root_url
+    end
   end
 
   private

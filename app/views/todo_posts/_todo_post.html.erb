@@ -1,27 +1,34 @@
 <li id="todo_post-<%= todo_post.id %>">
 
-  <span class="description">
+  <span class="<%=todo_post.completed? ? "description_completed" : "description"%>">
     <%= todo_post.description %>
   </span> <br />
 
   <% if !todo_post.category.empty? %>
-    <span class "subject">
+    <span class="<%=todo_post.completed? ? "subject_completed" : "subject"%>">
       Tags: <%= raw todo_post.category.map { |t| link_to t.name, tag_path(t.name) }.join(", ") %>
     </span> <br />
   <% end %>
 
   <% if !todo_post.due_date.nil? %>
-    <span class="due_date:">
+    <span class="<%=todo_post.completed? ? "due_date_completed" : "due_date"%>">
       <%= todo_post.due_date.strftime("Due on %d/%m/%Y") %>
     </span> <br />
   <% end %>
 
-  <span class="timestamp">
-    Created <%= time_ago_in_words(todo_post.created_at) %> ago.
+  <span class="<%=todo_post.completed? ? "timestamp_completed" : "timestamp"%>">
+    <%= todo_post.completed? ? "Completed " + time_ago_in_words(todo_post.completed_at)
+                :  "Created " + time_ago_in_words(todo_post.created_at) %> ago.
     <% if current_user?(todo_post.user) %>
 
         <%= link_to edit_todo_post_path(todo_post) do %>
           <%= icon('pencil', class: 'fa-1x') %>
+        <% end %>
+
+        <% if !todo_post.completed? %>
+          <%= link_to complete_todo_post_path(todo_post), method: :patch do %>
+            <%= icon('check', class: 'fa-1x') %>
+          <% end %>
         <% end %>
 
         <%= link_to todo_post, method: :delete, data: {confirm: "You sure?" } do %>
@@ -29,7 +36,4 @@
         <% end %>
     <% end %>
   </span>
-  <!-- <span class="icons">
-
-  </span> -->
 </li>

@@ -15,4 +15,7 @@ class TodoPost < ApplicationRecord
     self.tag_list = nil
   end
 
+  def completed?
+		!completed_at.blank?
+	end
 end

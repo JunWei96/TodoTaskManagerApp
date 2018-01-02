@@ -18,7 +18,11 @@ Rails.application.routes.draw do
 
 
   get '/', to: 'todo_posts#index'
-  resources :todo_posts
+  resources :todo_posts do
+    member do
+      patch :complete
+    end
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

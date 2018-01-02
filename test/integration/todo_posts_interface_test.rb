@@ -31,7 +31,6 @@ class TodoPostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_match description, response.body
 
     #delete post
-    assert_select 'ol li a', text: 'Delete'
     first_todo_post = @user.todo_posts.paginate(page: 1).first
     assert_difference 'TodoPost.count', -1 do
       delete todo_post_path(first_todo_post)
