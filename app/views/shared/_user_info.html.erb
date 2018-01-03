@@ -1,5 +1,5 @@
 <h1>Welcome, <%= current_user.name %></h1>
-<% completed_task_count = current_user.todo_posts.where("completed_at != 'nil'").count %>
+<% completed_task_count = current_user.todo_posts.where.not(completed_at: nil).count %>
 
 <span><%= link_to pluralize(current_user.todo_posts.count - completed_task_count,
                     "Remaining task"), remaining_path %></span>
