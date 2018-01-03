@@ -4,7 +4,7 @@
     <%= submit_tag "Search", class: "btn btn-primary " %>
     <p align="left"> <%= link_to "Advanced search", new_advanced_search_path %>
       <span style = "float: right;" > <% if controller.controller_name != "todo_posts" %>
-        <%= link_to "Sort by due date", sort: "due_date", class: "sort"%>
+        <%= link_to "Sort by due date", sort: "due_date"%>
       <% end %> </span>
     </p>
   </div>
