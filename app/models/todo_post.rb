@@ -5,7 +5,9 @@ class TodoPost < ApplicationRecord
 
   before_save :set_tag_owner
 
-  default_scope -> { order(created_at: :desc) }
+  # default_scope -> { order(due_date: :asc) }
+  # default_scope -> { order(created_at: :desc) }
+
   validates :user_id, presence: true
   validates :description, presence: true, length: {maximum: 140}
 

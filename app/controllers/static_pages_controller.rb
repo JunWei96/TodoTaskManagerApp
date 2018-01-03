@@ -7,12 +7,15 @@ class StaticPagesController < ApplicationController
       # @user.tag(@todo_post, with: params[:tag_list], on: :category)
       # @todo_post.save
       @subjects = get_subjects
+      
+      # @order = params[:sort] ? params[:sort] : "created_at DESC"
+      @order = get_sort_params
       if params[:tag]
         @todo_posts = TodoPost.tagged_with(params[:tag],
-                                owned_by: @user).paginate(page: params[:page])
+                                owned_by: @user).order(@order).paginate(page: params[:page])
         @header = "Category: " + params[:tag]
       else
-        @todo_posts = @user.todo_posts.paginate(page: params[:page])
+        @todo_posts = @user.todo_posts.order(@order).paginate(page: params[:page])
         @header = "TODO list(" + @user.todo_posts.count.to_s + ")"
       end
     end

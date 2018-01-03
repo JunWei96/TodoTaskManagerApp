@@ -5,9 +5,9 @@ class TodoPostsController < ApplicationController
   def index
     if logged_in?
       @user = current_user
-      @todo_posts = @user.search_task(params[:search]).paginate(page: params[:page])
       @todo_post = @user.todo_posts.build
       @header = "Search: " + params[:search]
+      @todo_posts = @user.search_task(params[:search]).sort_by(&:due_date).paginate(page: params[:page])
     end
   end
 

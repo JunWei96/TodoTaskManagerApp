@@ -16,5 +16,9 @@ class ApplicationController < ActionController::Base
 
   def user_time_zone(&block)
       Time.use_zone(current_user.time_zone, &block)
-    end
+  end
+
+  def get_sort_params
+    params[:sort] == "due_date" ? params[:sort] : "created_at DESC"
+  end
 end

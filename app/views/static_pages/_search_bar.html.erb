@@ -1,7 +1,11 @@
 <%= form_tag todo_posts_path, method: 'get' do %>
-  <p>
+  <div class="search_bar">
     <%= text_field_tag :search, params[:search], placeholder: "Search task's description" %>
-    <%= submit_tag "Search", class: "btn btn-primary" %>
-    <%= link_to "Advanced search", new_advanced_search_path %>
-  </p>
+    <%= submit_tag "Search", class: "btn btn-primary " %>
+    <p align="left"> <%= link_to "Advanced search", new_advanced_search_path %>
+      <span style = "float: right;" > <% if controller.controller_name != "todo_posts" %>
+        <%= link_to "Sort by due date", sort: "due_date", class: "sort"%>
+      <% end %> </span>
+    </p>
+  </div>
 <% end %>
