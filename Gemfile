@@ -24,6 +24,7 @@ gem 'jquery-rails', '>= 4.3.1'
 gem 'bootstrap-datepicker-rails', '~> 1.7', '>= 1.7.1.1'
 gem 'acts-as-taggable-on', '~> 5.0'
 gem 'font-awesome-sass'
+gem 'whenever', require: false
 
 group :development, :test do
   gem 'sqlite3'

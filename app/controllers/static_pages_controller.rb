@@ -21,6 +21,20 @@ class StaticPagesController < ApplicationController
   def contact
   end
 
+  def completed
+    @user = current_user
+    @todo_post = @user.todo_posts.build
+    @todo_posts = @user.todo_posts.where.not(completed_at: nil).paginate(page: params[:page])
+    @header = "Completed task".pluralize(@todo_posts.count)
+  end
+
+  def remaining
+    @user = current_user
+    @todo_post = @user.todo_posts.build
+    @todo_posts = @user.todo_posts.where(completed_at: nil).paginate(page: params[:page])
+    @header = "Remaining task".pluralize(@todo_posts.count)
+  end
+
   private
 
   def get_subjects

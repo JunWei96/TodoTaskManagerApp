@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
   get  '/contact', to: 'static_pages#contact'
+  get '/completed', to: 'static_pages#completed'
+  get '/remaining', to: 'static_pages#remaining' 
   get '/signup',  to: 'users#new'
   post '/signup', to: 'users#create'
 
