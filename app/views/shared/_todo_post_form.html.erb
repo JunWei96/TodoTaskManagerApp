@@ -2,7 +2,7 @@
 
 <%= form_for(@todo_post) do |f| %>
   <div class="field">
-    <%= f.label :tag_list, "Category (Optional)" %>
+    <%= f.label :tag_list, "Category" %>
     <%= f.text_area :tag_list, value: @todo_post.category.map(&:name) == [] ? ""
                                           : @todo_post.category.map(&:name).join(", ") %>
 
