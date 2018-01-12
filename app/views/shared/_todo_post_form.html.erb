@@ -1,7 +1,6 @@
 <h2> <%= @todo_post.description.blank? ? "Create task" : "Edit task" %> </h2>
 
 <%= form_for(@todo_post) do |f| %>
-  <!-- <%= render 'shared/error_messages', object: f.object %> -->
   <div class="field">
     <%= f.label :tag_list, "Category (Optional)" %>
     <%= f.text_area :tag_list, value: @todo_post.category.map(&:name) == [] ? ""

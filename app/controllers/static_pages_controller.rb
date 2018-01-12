@@ -4,12 +4,11 @@ class StaticPagesController < ApplicationController
       @user = current_user
       # for /share/todo_post_form
       @todo_post = @user.todo_posts.build
-      # @user.tag(@todo_post, with: params[:tag_list], on: :category)
-      # @todo_post.save
-      @subjects = get_subjects
-      
-      # @order = params[:sort] ? params[:sort] : "created_at DESC"
+      # obtain the type of order that the user's wants on the todo_posts
       @order = get_sort_params
+
+      # if the user clicked on any tag link, the @todo_posts will only display
+      # those post with that tag.
       if params[:tag]
         @todo_posts = TodoPost.tagged_with(params[:tag],
                                 owned_by: @user).order(@order).paginate(page: params[:page])
@@ -36,19 +35,5 @@ class StaticPagesController < ApplicationController
     @todo_post = @user.todo_posts.build
     @todo_posts = @user.todo_posts.where(completed_at: nil).paginate(page: params[:page])
     @header = "Remaining task".pluralize(@todo_posts.count)
-  end
-
-  private
-
-  def get_subjects
-    owned_tags = current_user.owned_tags
-    subjects = []
-    len = owned_tags.length
-    i = 0
-    while i < len do
-      subjects << current_user.owned_tags[i].name
-      i = i + 1
-    end
-    return subjects
   end
 end

@@ -17,11 +17,12 @@ class AdvancedSearchesController < ApplicationController
     @advanced_search = @user.advanced_searches.find(params[:id])
     @header = "Advanced search"
 
-    # @order = params[:sort] ? params[:sort] : "created_at DESC"
-    if get_sort_params != "created_at DESC"
-      @todo_posts = @advanced_search.todo_posts.sort_by(&:"#{params[:sort]}").paginate(page: params[:page])
-    else
+    # if user wants to sort the todo_posts according to created_at in DESC order,
+    # then sort it accordingly, else sort it according to time of post in ASC order.
+    if get_sort_params == "created_at DESC"
       @todo_posts = @advanced_search.todo_posts.reverse.paginate(page: params[:page])
+    else
+      @todo_posts = @advanced_search.todo_posts.sort_by(&:"#{params[:sort]}").paginate(page: params[:page])
     end
   end
 
