@@ -26,7 +26,4 @@ class TodoPostTest < ActiveSupport::TestCase
     assert_not @todo_post.valid?
   end
 
-  test "order should be most recent first" do
-    assert_equal todo_posts(:most_recent), TodoPost.first
-  end
 end

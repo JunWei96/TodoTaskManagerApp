@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update, :index]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:show, :edit, :update, :index]
+  before_action :correct_user, only: [:show, :edit, :update]
   before_action :admin_user, only: [:index, :destroy]
 
   def index
@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    redirect_to root_url and return if !@user.activated?
+    redirect_to root_url and return if (!@user.activated?)
     @todo_posts = @user.todo_posts.paginate(page: params[:page])
   end
 
@@ -57,12 +57,13 @@ class UsersController < ApplicationController
                                  :password_confirmation, :time_zone)
   end
 
-  # Confirms the correct user.
+  # Ensure the current user is only able to make changes to its own profile.
   def correct_user
     @user = User.find(params[:id])
     redirect_to(root_url) if !current_user?(@user)
   end
 
+  # Ensure only admins have access to admin privileges
   def admin_user
     redirect_to(root_url) if !(current_user && current_user.admin?)
   end

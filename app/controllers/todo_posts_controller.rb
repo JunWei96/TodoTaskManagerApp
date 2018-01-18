@@ -2,15 +2,6 @@ class TodoPostsController < ApplicationController
   before_action :logged_in_user, only: [:index, :create, :destroy, :complete]
   before_action :correct_user,   only: [:destroy, :complete]
 
-  def index
-    @user = current_user
-    # parameters of build is empty to create an new todo_post object in memory
-    # so that the view can take this todo_post and display an empty form.
-    @todo_post = @user.todo_posts.build
-    @todo_posts = @user.search_task(params[:search]).sort_by(&:due_date).paginate(page: params[:page])
-    @header = "Search: " + params[:search]
-  end
-
   def create
     @user = current_user
     @todo_post = @user.todo_posts.build(todo_post_params)
@@ -28,7 +19,11 @@ class TodoPostsController < ApplicationController
   def edit
     @user = current_user
     @todo_post = @user.todo_posts.find(params[:id])
-    @todo_posts = @user.todo_posts.paginate(page: params[:page])
+    @todo_posts_to_be_due = filter_tasks_to_be_due(@user.todo_posts).paginate(page: params[:page], per_page: 5)
+    @todo_posts_overdue = filter_tasks_overdue(@user.todo_posts).paginate(page: params[:page], per_page: 5)
+    @todo_posts_deferred = filter_tasks_deferred(@user.todo_posts).paginate(page: params[:page], per_page: 5)
+    @todo_posts_completed = filter_tasks_completed(@user.todo_posts).paginate(page: params[:page], per_page: 5)
+    @header = "TODO list(" + @user.todo_posts.count.to_s + ")"
   end
 
   def update
@@ -44,8 +39,10 @@ class TodoPostsController < ApplicationController
 
   def destroy
     @todo_post.destroy
-    flash[:success] = "Task deleted"
-    redirect_to request.referrer || root_url
+    respond_to do |format|
+        format.html { redirect_to root_url }
+        format.js
+    end
   end
 
   def complete
@@ -62,6 +59,7 @@ class TodoPostsController < ApplicationController
     params.require(:todo_post).permit(:description, :due_date, :tag_list)
   end
 
+  # make sure the todo_post belongs to its respective owners
   def correct_user
     @todo_post = current_user.todo_posts.find_by(id: params[:id])
     redirect_to root_url if @todo_post.nil?

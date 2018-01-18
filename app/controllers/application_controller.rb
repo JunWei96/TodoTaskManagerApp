@@ -18,7 +18,27 @@ class ApplicationController < ActionController::Base
       Time.use_zone(current_user.time_zone, &block)
   end
 
-  def get_sort_params
-    params[:sort] == "due_date" ? params[:sort] : "created_at DESC"
+  def filter_tasks_to_be_due(todo_posts)
+    todo_posts_to_be_due = todo_posts.where.not(due_date: nil)
+    todo_posts_to_be_due = todo_posts_to_be_due.where(completed_at: nil)
+    todo_posts_to_be_due = todo_posts_to_be_due.where('due_date >= ?', DateTime.now)
+    return todo_posts_to_be_due
   end
+
+  def filter_tasks_overdue(todo_posts)
+    todo_posts_overdue = todo_posts.where.not(due_date: nil)
+    todo_posts_overdue = todo_posts_overdue.where(completed_at: nil)
+    todo_posts_overdue = todo_posts_overdue.where('due_date < ?', DateTime.now)
+    return todo_posts_overdue
+  end
+
+  def filter_tasks_deferred(todo_posts)
+    todo_posts_deferred = todo_posts.where(completed_at: nil)
+    return todo_posts_deferred.where(due_date: nil)
+  end
+
+  def filter_tasks_completed(todo_posts)
+    return todo_posts.where.not(completed_at: nil)
+  end
+
 end

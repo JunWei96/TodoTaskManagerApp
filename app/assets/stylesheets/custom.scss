@@ -48,12 +48,17 @@ h1 {
 }
 
 h2 {
-  font-size: 1.2em;
+  font-size: 1.5em;
   letter-spacing: -1px;
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
   color: $gray-light;
+}
+
+h3 {
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 p {
@@ -219,6 +224,7 @@ input {
     border-bottom: 2px solid #e7e7e7;
     padding-top: 0.25em;
   	padding-bottom: 0.25em;
+    line-height: 1.2;
     .description {
       font-family: Oswald;
       font-size: 20px;
@@ -284,4 +290,14 @@ aside {
 
 div#datepicker.input-daterange.input-group {
   margin-bottom: 15px;
+}
+
+// pagination
+
+div.pagination {
+  margin: 0px;
+}
+
+ul.pagination {
+  margin: 0px;
 }

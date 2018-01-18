@@ -1,5 +1,4 @@
-<li id="todo_post-<%= todo_post.id %>">
-
+<li id="<%= (todo_post.completed? ? "completed_" : "remaining_") + todo_post.id.to_s %>">
   <span class="<%=todo_post.completed? ? "description_completed" : "description"%>">
     <%= todo_post.description %>
   </span> <br />
@@ -31,7 +30,9 @@
           <% end %>
         <% end %>
 
-        <%= link_to todo_post, method: :delete, data: {confirm: "You sure?" } do %>
+        <%= link_to todo_post, method: :delete,
+          data: {confirm: "You sure?" }, remote: true do %>
+
           <%= icon('trash', class: 'fa-1x') %>
         <% end %>
     <% end %>

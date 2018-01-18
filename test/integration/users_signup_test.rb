@@ -32,7 +32,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_not user.activated?
     # Try to access show profile before activation
     get user_path(user)
-    assert_redirected_to root_url
+    assert_redirected_to login_path
     # Try to log in before activation
     log_in_as(user)
     assert_not is_logged_in?

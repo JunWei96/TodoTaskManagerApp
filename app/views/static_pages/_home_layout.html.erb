@@ -14,13 +14,40 @@
       <% if !@user.nil? && @user.todo_posts.any? %>
         <h1> <%= @header %> </h1>
         <%= render 'static_pages/search_bar' %>
-
         <ol class="todo_posts">
-          <% @todo_posts.each do |todo_post| %>
-            <%= render todo_post %>
+
+          <% if @todo_posts_to_be_due.any?  %>
+            <h3> Tasks to be due </h3>
+            <% @todo_posts_to_be_due.each do |todo_post| %>
+              <%= render todo_post %>
+            <% end %>
+            <%= will_paginate @todo_posts_to_be_due %>
+          <% end %>
+
+          <% if @todo_posts_overdue.any? %>
+            <h3> Overdue tasks </h3>
+            <% @todo_posts_overdue.each do |todo_post|  %>
+              <%= render todo_post %>
+            <% end %>
+            <%= will_paginate @todo_posts_overdue %>
+          <% end %>
+
+          <% if @todo_posts_deferred.any? %>
+            <h3> Deferred tasks </h3>
+            <% @todo_posts_deferred.each do |todo_post| %>
+              <%= render todo_post %>
+            <% end %>
+            <%= will_paginate @todo_posts_deferred %>
+          <% end %>
+
+          <% if @todo_posts_completed.any? %>
+            <h3> Completed tasks </h3>
+            <% @todo_posts_completed.each do |todo_post| %>
+              <%= render todo_post %>
+            <% end %>
+            <%= will_paginate @todo_posts_completed %>
           <% end %>
         </ol>
-        <%= will_paginate @todo_posts %>
       <% end %>
     </div>
   </div>
