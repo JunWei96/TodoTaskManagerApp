@@ -33,7 +33,7 @@ class AdvancedSearch < ApplicationRecord
       }
     end
 
-  filtered_posts
+    return TodoPost.where(id: filtered_posts.map(&:id))
   end
 
 

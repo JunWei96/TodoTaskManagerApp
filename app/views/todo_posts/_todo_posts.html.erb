@@ -1,0 +1,32 @@
+<% if @todo_posts_to_be_due.any?  %>
+  <header id="to_be_due"> <h3> Tasks to be due </h3> </header>
+  <% @todo_posts_to_be_due.each do |todo_post| %>
+    <%= render todo_post %>
+  <% end %>
+  <%= will_paginate @todo_posts_to_be_due, param_name: 'to_be_due_page' %>
+<% end %>
+
+<% if @todo_posts_overdue.any? %>
+  <header id="overdue"> <h3> Overdue tasks </h3> </header>
+  <% @todo_posts_overdue.each do |todo_post|  %>
+    <%= render todo_post %>
+  <% end %>
+  <%= will_paginate @todo_posts_overdue, param_name: 'overdue_page' %>
+<% end %>
+
+<% if @todo_posts_deferred.any? %>
+  <header id="deferred"> <h3> Deferred tasks </h3> </header>
+  <% @todo_posts_deferred.each do |todo_post| %>
+    <%= render todo_post %>
+  <% end %>
+  <%= will_paginate @todo_posts_deferred, param_name: 'deferred_page' %>
+<% end %>
+
+<% if @todo_posts_completed.any? %>
+  <header id="completed"> <h3> Completed tasks </h3> </header>
+  <% @todo_posts_completed.each do |todo_post| %>
+    <%= render todo_post %>
+  <% end %>
+  <%= will_paginate @todo_posts_completed, param_name: 'completed_page' %>
+<% end %>
+

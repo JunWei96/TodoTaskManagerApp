@@ -19,10 +19,10 @@ class TodoPostsController < ApplicationController
   def edit
     @user = current_user
     @todo_post = @user.todo_posts.find(params[:id])
-    @todo_posts_to_be_due = filter_tasks_to_be_due(@user.todo_posts).paginate(page: params[:page], per_page: 5)
-    @todo_posts_overdue = filter_tasks_overdue(@user.todo_posts).paginate(page: params[:page], per_page: 5)
-    @todo_posts_deferred = filter_tasks_deferred(@user.todo_posts).paginate(page: params[:page], per_page: 5)
-    @todo_posts_completed = filter_tasks_completed(@user.todo_posts).paginate(page: params[:page], per_page: 5)
+    @todo_posts_to_be_due = filter_tasks_to_be_due(@user.todo_posts).paginate(page: params[:to_be_due_page], per_page: 5)
+    @todo_posts_overdue = filter_tasks_overdue(@user.todo_posts).paginate(page: params[:over_due_page], per_page: 5)
+    @todo_posts_deferred = filter_tasks_deferred(@user.todo_posts).paginate(page: params[:deferred_page], per_page: 5)
+    @todo_posts_completed = filter_tasks_completed(@user.todo_posts).paginate(page: params[:completed_page], per_page: 5)
     @header = "TODO list(" + @user.todo_posts.count.to_s + ")"
   end
 

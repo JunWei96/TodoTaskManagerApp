@@ -25,7 +25,7 @@
         <% end %>
 
         <% if !todo_post.completed? %>
-          <%= link_to complete_todo_post_path(todo_post), method: :patch do %>
+          <%= link_to complete_todo_post_path(todo_post), method: :patch, id: "complete_tick" do %>
             <%= icon('check', class: 'fa-1x') %>
           <% end %>
         <% end %>

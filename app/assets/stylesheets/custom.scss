@@ -56,9 +56,30 @@ h2 {
   color: $gray-light;
 }
 
+header {
+  border-radius: 15px;
+}
+header#to_be_due {
+  background-color: #E9AB17;
+}
+header#overdue {
+  background-color: #B22222;
+}
+header#deferred {
+  background-color: #008080;
+}
+header#completed {
+  background-color: #4863A0;
+}
 h3 {
-  font-weight: bold;
-  text-decoration: underline;
+    font-size: 1.7em;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: -1px;
+    padding-top: 9px;
+		padding-bottom: 9px;
+    font-weight: bold;
 }
 
 p {
