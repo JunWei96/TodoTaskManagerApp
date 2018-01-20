@@ -21,14 +21,14 @@ class ApplicationController < ActionController::Base
   def filter_tasks_to_be_due(todo_posts)
     todo_posts_to_be_due = todo_posts.where.not(due_date: nil)
     todo_posts_to_be_due = todo_posts_to_be_due.where(completed_at: nil)
-    todo_posts_to_be_due = todo_posts_to_be_due.where('due_date >= ?', DateTime.now)
+    todo_posts_to_be_due = todo_posts_to_be_due.where('due_date >= ?', Time.zone.now)
     return todo_posts_to_be_due
   end
 
   def filter_tasks_overdue(todo_posts)
     todo_posts_overdue = todo_posts.where.not(due_date: nil)
     todo_posts_overdue = todo_posts_overdue.where(completed_at: nil)
-    todo_posts_overdue = todo_posts_overdue.where('due_date < ?', DateTime.now)
+    todo_posts_overdue = todo_posts_overdue.where('due_date < ?', Time.zone.now)
     return todo_posts_overdue
   end
 
