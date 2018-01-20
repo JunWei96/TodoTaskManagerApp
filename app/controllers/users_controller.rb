@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:show, :edit, :update, :index]
-  before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user, only: [:show, :index, :destroy]
+  before_action :correct_user, only: [:show, :edit, :update]
+  before_action :admin_user, only: [:index, :destroy]
 
   def index
     @users = User.where(activated: true).paginate(page: params[:page])
@@ -57,10 +57,10 @@ class UsersController < ApplicationController
                                  :password_confirmation, :time_zone)
   end
 
-  # Ensure the current user is only able to make changes to its own profile.
+  # Ensure the current user is only able to make changes to its own profile. Except for admin.
   def correct_user
     @user = User.find(params[:id])
-    redirect_to(root_url) if !current_user?(@user)
+    redirect_to(root_url) if (!current_user?(@user) && !current_user.admin?)
   end
 
   # Ensure only admins have access to admin privileges
