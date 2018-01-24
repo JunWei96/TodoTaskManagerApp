@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
       Time.use_zone(current_user.time_zone, &block)
   end
 
+  # The methods below are used to filter out todo_posts according to their categories
   def filter_tasks_to_be_due(todo_posts)
     todo_posts_to_be_due = todo_posts.where.not(due_date: nil)
     todo_posts_to_be_due = todo_posts_to_be_due.where(completed_at: nil)

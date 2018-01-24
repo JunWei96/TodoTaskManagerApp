@@ -14,18 +14,23 @@ class User < ApplicationRecord
   validates :email, presence: true, length: {maximum: 255},
                     format: {with: VALID_EMAIL_REGEX},
                     uniqueness: {case_sensitive: false}
+
   has_secure_password # enable the user to use the authenticate method
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
-  validates :time_zone, presence: true
-  validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map(&:name) }
+  # Ensure each user has an associated timezone, and the timezone exists in the list
+  # of timezones provided by rails
+  validates :time_zone, presence: true,
+                        inclusion: { in: ActiveSupport::TimeZone.all.map(&:name) }
 
+  # To encrypt the "string" using BCrypt
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
 
+  # produce a random string
   def User.new_token
     SecureRandom.urlsafe_base64
   end
@@ -55,6 +60,8 @@ class User < ApplicationRecord
     UserMailer.account_activation(self).deliver_now
   end
 
+  # To create an encrypted token to store in database when user opts to reset their password
+  # from the "forget password" link.
   def create_reset_digest
     self.reset_token = User.new_token
     self.update_columns(reset_digest: User.digest(reset_token),
@@ -69,6 +76,7 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
+  # method for simple search
   def search_task(search_param)
     if search_param
       todo_posts.where("description LIKE ?", "%#{search_param}%")

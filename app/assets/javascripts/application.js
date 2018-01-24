@@ -17,6 +17,7 @@
 //= require bootstrap-datepicker
 //= require_tree .
 
+// JQuery to choose the format of datepicker
 $(document).on("focus", "[data-behaviour~='datepicker']", function(e){
     $(this).datepicker({"format": "dd-mm-yyyy",
                         "weekStart": 1,
