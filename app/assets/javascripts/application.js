@@ -24,3 +24,9 @@ $(document).on("focus", "[data-behaviour~='datepicker']", function(e){
                         "autoclose": true,
                         "startDate": "0d"});
 });
+
+$(document).on("focus", "[data-behaviour~='datepicker-for-advsearch']", function(e){
+    $(this).datepicker({"format": "dd-mm-yyyy",
+                        "weekStart": 1,
+                        "autoclose": true });
+});
