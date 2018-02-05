@@ -1,0 +1,10 @@
+// JQuery when user delete the todo_post
+$('<%= "li#" + "remaining_" + @todo_post.id.to_s %>').fadeOut("500",
+                                                        function() {
+                                                          $(this).remove();
+                                                        })
+$('header#completed').after('<%= escape_javascript(render(@todo_post))%>')
+$('<%= "li#" + "remaining_" + @todo_post.id.to_s %>').css({
+  'opacity': '0.5',
+  'text-decoration': 'line-through'
+})

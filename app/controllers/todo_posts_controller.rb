@@ -19,7 +19,7 @@ class TodoPostsController < ApplicationController
 
       if params[:tag]
         # Filter the todo_posts according to the choose tag which are owned by @user
-        @todo_posts = TodoPost.tagged_with(params[:tag], owned_by: @user);
+        @todo_posts = TodoPost.tagged_with(params[:tag], owned_by: @user)
 
         @todo_posts_to_be_due = filter_tasks_to_be_due(@todo_posts).paginate(page: params[:to_be_due_page], per_page: 5)
         @todo_posts_overdue = filter_tasks_overdue(@todo_posts).paginate(page: params[:overdue_page], per_page: 5)
@@ -95,8 +95,11 @@ class TodoPostsController < ApplicationController
     @user = current_user
     @todo_post = @user.todo_posts.find(params[:id])
     @todo_post.touch(:completed_at)
-    flash[:success] = "Task successfully completed!"
-    redirect_to root_url
+    @completed_todo_post =
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js
+    end
   end
 
   private

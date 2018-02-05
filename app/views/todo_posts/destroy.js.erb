@@ -1,1 +1,2 @@
+// JQuery when user delete the todo_post
 $('<%="li#" + (@todo_post.completed? ? "completed_" : "remaining_") + @todo_post.id.to_s %>').fadeOut("500", function () { $(this).remove(); })
