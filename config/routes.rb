@@ -1,18 +1,15 @@
 Rails.application.routes.draw do
   get 'sessions/new'
 
-  root 'static_pages#home'
-  get  '/contact', to: 'static_pages#contact'
-  get '/completed', to: 'static_pages#completed'
-  get '/remaining', to: 'static_pages#remaining' 
+  get 'tags/:tag', to: 'todo_posts#home', as: :tag
+  root 'todo_posts#home'
+
   get '/signup',  to: 'users#new'
   post '/signup', to: 'users#create'
 
   get '/login', to: "sessions#new"
   post '/login', to: "sessions#create"
   delete '/logout', to: "sessions#destroy"
-
-  get 'tags/:tag', to: 'static_pages#home', as: :tag
 
   resources :users
   resources :account_activations, only: [:edit]
@@ -28,5 +25,4 @@ Rails.application.routes.draw do
 
   resources :advanced_searches
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

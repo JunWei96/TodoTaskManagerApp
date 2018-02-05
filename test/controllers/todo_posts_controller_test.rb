@@ -3,6 +3,13 @@ require 'test_helper'
 class TodoPostsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @todo_post = todo_posts(:orange)
+    @base_title = "TODO Manager App"
+  end
+
+  test "should get home" do
+    get root_path
+    assert_response :success
+    assert_select "title", "#{@base_title}"
   end
 
   test "should redirect create when not logged in" do
