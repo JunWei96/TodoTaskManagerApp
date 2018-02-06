@@ -6,17 +6,16 @@
       <section class="user_info">
         <%= render 'shared/user_info' %>
       </section>
-      <%= render 'layouts/notice_banner' %>
       <section class="todo_post_form">
         <%= render 'shared/todo_post_form' %>
       </section>
-      <%= render 'todo_posts/tag_cloud' %>
+      <%= render 'static_pages/tag_cloud' %>
     </aside>
 
     <div class="col-md-8">
       <% if !@user.nil? && @user.todo_posts.any? %>
         <h1> <%= @header %> </h1>
-        <%= render 'todo_posts/search_bar' %>
+        <%= render 'static_pages/search_bar' %>
         <ol id="todo_posts" class="todo_posts">
           <%= render 'todo_posts/todo_posts' %>
         </ol>
